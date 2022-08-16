@@ -4,7 +4,7 @@ import Palette from "./Palette";
 function App() {
 	return (
 		<div>
-			<Palette {...colors[4]} />
+			<Palette colors={colors[5]} />
 		</div>
 	);
 }
