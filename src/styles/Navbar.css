@@ -31,6 +31,22 @@
 	width: 340px;
 	margin: 0;
 	display: inline-block;
+	flex-wrap: nowrap;
+}
+
+.slider-level span {
+	display: block;
+	white-space: pre;
+}
+
+.slider-level {
+	width: -webkit-fill-available;
+	display: flex;
+	flex-direction: row;
+}
+
+.slider {
+	width: -webkit-fill-available;
 }
 
 .color-slider .rc-slider-track {
