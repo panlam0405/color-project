@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import Slider from "rc-slider/lib/Slider";
 import { Select } from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";
+import Snackbar from "@material-ui/core/Snackbar";
+import CloseIcon from "@material-ui/icons/Close";
+import IconButton from "@material-ui/core/IconButton";
 import "rc-slider/assets/index.css";
 import "../styles/Navbar.css";
 
@@ -10,16 +13,23 @@ class Navbar extends Component {
 		super(props);
 		this.state = {
 			format: "hex",
+			open: false,
 		};
 		this.handleChange = this.handleChange.bind(this);
+		this.closeSnackbar = this.closeSnackbar.bind(this);
 	}
 
 	handleChange(e) {
 		this.setState({ format: e.target.value });
 		this.props.handleChange(e);
+		this.setState({ open: true });
+	}
+
+	closeSnackbar() {
+		this.setState({ open: false });
 	}
 	render() {
-		const { format } = this.state;
+		const { format, open } = this.state;
 		return (
 			<header className='Navbar'>
 				<div className='logo'>
@@ -47,6 +57,25 @@ class Navbar extends Component {
 						<MenuItem value='rgba'>Rgba - rgb(250,250,250,1.0)</MenuItem>
 					</Select>
 				</div>
+				<Snackbar
+					anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+					open={open}
+					autoHideDuration={3000}
+					message={
+						<span id='snasckbar-msg-id'>Format changed to {format}</span>
+					}
+					ContentProps={{ "aria-describedby": "snasckbar-message-id" }}
+					onClose={this.closeSnackbar}
+					action={
+						<IconButton
+							onClick={this.closeSnackbar}
+							color='inherit'
+							key='close'
+							aria-label='close'>
+							<CloseIcon />
+						</IconButton>
+					}
+				/>
 			</header>
 		);
 	}
