@@ -1,37 +1,10 @@
 .Palette {
-    height: 97vh;
-    width: 100vw;
+	height: 100vh;
+	width: 100%;
+	margin: 0;
+	box-sizing: border-box;
 }
 
 .Palette-colors {
-    height: 90%;
-}
-
-.color-slider {
-    width: 340px;
-    margin: 0;
-    display: inline-block;
-}
-
-.color-slider .rc-slider-track {
-    background-color: transparent;
-}
-
-.color-slider .rc-slider-rail {
-    height: 8px;
-}
-
-.color-slider .rc-slider-handle,
-.color-slider .rc-slider-handle:active,
-.color-slider .rc-slider-handle:focus, 
-.color-slider .rc-slider-handle:hover{
-    background-color: green;
-    outline: transparent;
-    outline-color: transparent;
-    border: 2px solid green;
-    box-shadow: none;
-    width: 13px;
-    height: 13px;
-    margin-left: -7px;
-    margin-top: -3px;
+	height: 90%;
 }
