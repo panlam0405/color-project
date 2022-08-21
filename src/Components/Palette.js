@@ -3,6 +3,7 @@ import ColorBox from "./ColorBox";
 import { v4 } from "uuid";
 import "../styles/Palette.css";
 import { Navbar } from "./Navbar";
+
 class Palette extends Component {
 	constructor(props) {
 		super(props);
@@ -22,12 +23,12 @@ class Palette extends Component {
 		this.setState({ format: e.target.value });
 	}
 	render() {
+		console.log(this.props.palette);
 		const { colors, paletteName, emoji } = this.props.palette;
 		const { level, format } = this.state;
 		let colorBoxes = colors[level].map((color) => (
 			<ColorBox key={v4()} background={color[format]} name={color.name} />
 		));
-
 		return (
 			<div className='Palette'>
 				<Navbar

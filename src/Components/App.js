@@ -1,20 +1,13 @@
-import { generatePalette } from "../colorHelpers";
-import { colors } from "../seedColors";
-import Palette from "./Palette";
+import Params from "./Params";
 import "../styles/App.css";
 import { Routes, Route } from "react-router-dom";
 
 function App() {
-	console.log(generatePalette(colors[5]));
 	return (
 		<div className='App'>
 			<Routes>
 				<Route exact path='/' />
-				<Route
-					exact
-					path='/palette/:id'
-					element={<Palette palette={generatePalette(colors[5])} />}
-				/>
+				<Route exact path='/palette/:id' element={<Params />} />
 			</Routes>
 		</div>
 	);
