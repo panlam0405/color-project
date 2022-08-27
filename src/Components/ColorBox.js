@@ -18,7 +18,7 @@ class ColorBox extends Component {
 	}
 	render() {
 		// console.log(this.props.background);
-		let { name, background, colorId, paletteId } = this.props;
+		let { name, background, colorId, paletteId, showLink } = this.props;
 		return (
 			<CopyToClipboard text={background} onCopy={this.changeCopyState}>
 				<div className='ColorBox' style={{ background: `${background}` }}>
@@ -36,11 +36,14 @@ class ColorBox extends Component {
 						</div>
 						<button className='copy-button'>Copy</button>
 					</div>
-					<Link
-						to={`/palette/${paletteId}/${colorId}`}
-						onClick={(e) => e.stopPropagation()}>
-						<span className='colorbox-more'>More</span>
-					</Link>
+
+					{showLink && (
+						<Link
+							to={`/palette/${paletteId}/${colorId}`}
+							onClick={(e) => e.stopPropagation()}>
+							<span className='colorbox-more'>More</span>
+						</Link>
+					)}
 				</div>
 			</CopyToClipboard>
 		);

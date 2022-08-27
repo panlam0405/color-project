@@ -10,7 +10,7 @@ function App() {
 			<Routes>
 				<Route exact path='/' element={<History palettes={colors} />} />
 				<Route exact path='/palette/:id' element={<Params />} />
-				<Route exact path='/palette/:paletteId/:Colorid' element={<Params />} />
+				<Route exact path='/palette/:paletteId/:colorId' element={<Params />} />
 			</Routes>
 		</div>
 	);

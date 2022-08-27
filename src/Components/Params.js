@@ -20,6 +20,10 @@ export default function Params() {
 	return id !== undefined ? (
 		<Palette palette={findPalette(id)} />
 	) : (
-		<SingleColorPalette paletteId={paletteId} colorId={colorId} />
+		<SingleColorPalette
+			palette={findPalette(paletteId)}
+			paletteId={paletteId}
+			colorId={colorId}
+		/>
 	);
 }
