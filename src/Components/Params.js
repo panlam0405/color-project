@@ -3,10 +3,11 @@ import { useParams } from "react-router-dom";
 import { generatePalette } from "../colorHelpers";
 import { colors } from "../seedColors";
 import Palette from "./Palette";
+import SingleColorPalette from "./SingleColorPalette";
 
 export default function Params() {
 	let params = useParams();
-	const { id } = params;
+	const { id, paletteId, colorId } = params;
 	console.log("params", params);
 
 	function findPalette(id) {
@@ -14,7 +15,11 @@ export default function Params() {
 
 		return generatePalette(palette);
 	}
-	console.log(findPalette(id));
+	console.log(id);
 
-	return <Palette palette={findPalette(id)} />;
+	return id !== undefined ? (
+		<Palette palette={findPalette(id)} />
+	) : (
+		<SingleColorPalette paletteId={paletteId} colorId={colorId} />
+	);
 }
