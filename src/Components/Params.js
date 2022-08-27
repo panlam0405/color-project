@@ -7,6 +7,7 @@ import Palette from "./Palette";
 export default function Params() {
 	let params = useParams();
 	const { id } = params;
+	console.log("params", params);
 
 	function findPalette(id) {
 		let palette = colors.find((color) => id === color.id);
