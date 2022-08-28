@@ -75,3 +75,7 @@
 .select-container {
 	margin-left: auto;
 }
+
+#root > div > div > header > div.color-slider > div > span {
+	margin-right: inherit;
+}
