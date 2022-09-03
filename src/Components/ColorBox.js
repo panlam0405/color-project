@@ -27,6 +27,17 @@ const styles = {
 		color: (props) =>
 			chroma(props.background).luminance() <= 0.08 ? "#fff" : "#000",
 	},
+	boxContent: {
+		position: "absolute",
+		width: "90%",
+		left: "0px",
+		bottom: "0px",
+		padding: "10px",
+		color: "black",
+		letterSpacing: "1px",
+		texttransform: "uppercase",
+		fontSize: "12px",
+	},
 	seeMore: {
 		background: "rgba(255, 255, 255, 0.3)",
 		position: "absolute",
@@ -64,6 +75,56 @@ const styles = {
 				? "white"
 				: "rgba(0,0,0,0.6)",
 	},
+	copyOverlay: {
+		opacity: "0",
+		zIndex: "0",
+		width: "100%",
+		height: "100%",
+		transform: "scale(0.1)",
+		transition: "transform 0.7s ease-in-out",
+	},
+	showOverlay: {
+		opacity: "1",
+		zIndex: "10",
+		transform: "scale(30)",
+		position: "absolute",
+	},
+	overlayMessage: {
+		position: "fixed",
+		top: "0",
+		bottom: "0",
+		right: "0",
+		left: "0",
+		display: "flex",
+		justifyContent: "center",
+		flexDirection: "column",
+		alignItems: "center",
+		fontSize: "2.5rem",
+		opacity: "0",
+		transform: "scale(0)",
+		color: "white",
+		transition: "transform 0.7s ease-in-out",
+		transitionDelay: "300ms",
+		"& h1": {
+			fontWeight: "400",
+			textShadow: " 1px 2px #000",
+			background: "rgba(255, 255, 255, 0.2)",
+			width: "100%",
+			textAlign: "center",
+			margin: "0",
+			padding: "1rem",
+			textTransform: "uppercase",
+		},
+		"& p": {
+			fontSize: "2rem",
+			fontWeight: "100",
+		},
+	},
+	overlayMessageShow: {
+		opacity: "1",
+		transform: "scale(1)",
+		zIndex: "25",
+	},
 };
 
 class ColorBox extends Component {
@@ -97,15 +158,20 @@ class ColorBox extends Component {
 					className={classes.colorBox}
 					style={{ background: `${background}` }}>
 					<div
-						className={`copy-overlay ${this.state.copied ? "show" : ""}`}
+						className={`${classes.copyOverlay} ${
+							this.state.copied && classes.showOverlay
+						}`}
 						style={{ background: `${background}` }}
 					/>
-					<div className={`overlay-message ${this.state.copied ? "show" : ""}`}>
+					<div
+						className={`${classes.overlayMessage} ${
+							this.state.copied && classes.overlayMessageShow
+						}`}>
 						<h1 className={classes.colorName}>copied !</h1>
 						<p className={classes.copyText}>{background}</p>
 					</div>
-					<div className='copy-container'>
-						<div className='box-content'>
+					<div>
+						<div className={classes.boxContent}>
 							<span className={isUnreadable ? "light-text" : ""}>{name}</span>
 						</div>
 						<button className={classes.copyButton}>Copy</button>
