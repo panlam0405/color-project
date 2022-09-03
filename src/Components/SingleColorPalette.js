@@ -39,7 +39,7 @@ export default class SingleColorPalette extends Component {
 					key={v4()}
 					background={color[format]}
 					name={color.name}
-					showLink={false}
+					showingFullColorPalette={false}
 				/>
 			);
 		});

@@ -12,7 +12,7 @@
 	height: 50%;
 }
 
-.copy-button,
+/* .copy-button, */
 .back-button {
 	width: 100px;
 	height: 30px;
@@ -33,13 +33,13 @@
 	text-decoration: none;
 }
 
-.copy-button {
+/* .copy-button {
 	opacity: 0;
 }
 
 .ColorBox:hover .copy-button {
 	opacity: 1;
-}
+} */
 
 .box-content {
 	position: absolute;
@@ -131,6 +131,6 @@
 	font-weight: 100;
 }
 
-.ColorBox.go-back {
+.go-back {
 	background-color: #000;
 }
