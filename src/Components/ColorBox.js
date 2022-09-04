@@ -150,7 +150,7 @@ class ColorBox extends Component {
 			showingFullColorPalette,
 			classes,
 		} = this.props;
-		let isUnreadable = chroma(background).luminance() <= 0.07;
+		// let isUnreadable = chroma(background).luminance() <= 0.07;
 		// let isLightColor = chroma(background).luminance() >= 0.65;
 		return (
 			<CopyToClipboard text={background} onCopy={this.changeCopyState}>
@@ -167,12 +167,12 @@ class ColorBox extends Component {
 						className={`${classes.overlayMessage} ${
 							this.state.copied && classes.overlayMessageShow
 						}`}>
-						<h1 className={classes.colorName}>copied !</h1>
+						<h1 className={classes.copyText}>copied !</h1>
 						<p className={classes.copyText}>{background}</p>
 					</div>
 					<div>
 						<div className={classes.boxContent}>
-							<span className={isUnreadable ? "light-text" : ""}>{name}</span>
+							<span className={classes.colorName}>{name}</span>
 						</div>
 						<button className={classes.copyButton}>Copy</button>
 					</div>
