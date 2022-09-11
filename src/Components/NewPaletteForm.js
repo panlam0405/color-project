@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -15,6 +15,8 @@ import { ChromePicker } from "react-color";
 import { Button } from "@material-ui/core";
 import DraggableColorBox from "./DraggableColorBox";
 import { v4 } from "uuid";
+import  {ValidatorForm,TextValidator}  from "react-material-ui-form-validator";
+
 
 const drawerWidth = 350;
 
@@ -79,9 +81,35 @@ const useStyles = makeStyles((theme) => ({
 function NewPaletteForm() {
 	const classes = useStyles();
 	const theme = useTheme();
+
+	
+
 	const [open, setOpen] = React.useState(true);
 	const [currentColor, setColor] = React.useState("teal");
-	const [colors, setColorsArray] = React.useState(["purple", "#e15677"]);
+	const [ colors, setColorsArray ] = React.useState( [
+		{ color: "purple", name: 'purple' },
+		{ color: "#e15677", name: 'pink' }
+	] );
+	const [ newColorName, isValidated ] = React.useState( '' );
+
+	useEffect(
+		() => {
+			ValidatorForm.addValidationRule( 'colorNameExists', ( value ) => {
+				const found = colors.some(color => color.name.toLocaleLowerCase() === value.toLocaleLowerCase())
+				if ( found )
+					return false;
+				return true;
+			} )
+			ValidatorForm.addValidationRule( 'colorExists', ( value ) => {
+				const found = colors.some(({color}) => color === currentColor)
+				if ( found )
+					return false;
+				return true;
+			})
+		},[currentColor]
+	)
+
+	
 
 	const handleDrawerOpen = () => {
 		setOpen(true);
@@ -90,6 +118,17 @@ function NewPaletteForm() {
 	const handleDrawerClose = () => {
 		setOpen(false);
 	};
+
+	const addnewColor = () => {
+		const newColor = {color:currentColor, name: newColorName}
+		setColorsArray( [ ...colors, newColor ] )
+		isValidated('')
+	}
+
+	const handleChange = ( e ) => {
+		isValidated( e.target.value );
+
+	}
 
 	return (
 		<div className={classes.root}>
@@ -144,13 +183,20 @@ function NewPaletteForm() {
 					color={currentColor}
 					onChangeComplete={(newColor) => setColor(newColor.hex)}
 				/>
-				<Button
+				<ValidatorForm onSubmit={addnewColor } >
+					<TextValidator value={ newColorName } onChange={ handleChange }
+						validators={ [ 'required','colorNameExists','colorExists' ] }
+						errorMessages={['This field is required', 'This color name already exists','This color is already picked'] } />
+
+					<Button
 					style={{ backgroundColor: `${currentColor}` }}
 					variant='contained'
 					color='primary'
-					onClick={()=> setColorsArray([...colors,currentColor])} >
+					type="submit" >
 					Add Color
 				</Button>
+				</ValidatorForm>
+				
 			</Drawer>
 			<main
 				className={clsx(classes.content, {
@@ -158,7 +204,7 @@ function NewPaletteForm() {
 				})}>
 				<div className={ classes.drawerHeader } />
 				
-					{ colors.map( col => <DraggableColorBox key={v4()} color={col} />)}
+				{ colors.map( col => <DraggableColorBox key={ v4() } color={ col.color } name={col.name } />)}
 				
 			</main>
 		</div>
