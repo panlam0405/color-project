@@ -15,8 +15,8 @@ import { ChromePicker } from "react-color";
 import { Button } from "@material-ui/core";
 import DraggableColorBox from "./DraggableColorBox";
 import { v4 } from "uuid";
-import  {ValidatorForm,TextValidator}  from "react-material-ui-form-validator";
-
+import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 350;
 
@@ -78,38 +78,30 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-function NewPaletteForm() {
+function NewPaletteForm(props) {
 	const classes = useStyles();
 	const theme = useTheme();
-
-	
+	const navigate = useNavigate();
 
 	const [open, setOpen] = React.useState(true);
-	const [currentColor, setColor] = React.useState("teal");
-	const [ colors, setColorsArray ] = React.useState( [
-		{ color: "purple", name: 'purple' },
-		{ color: "#e15677", name: 'pink' }
-	] );
-	const [ newColorName, isValidated ] = React.useState( '' );
+	const [currentColor, setColor] = React.useState("#346efc");
+	const [colors, setColorsArray] = React.useState([]);
+	const [newColorName, isValidated] = React.useState("");
 
-	useEffect(
-		() => {
-			ValidatorForm.addValidationRule( 'colorNameExists', ( value ) => {
-				const found = colors.some(color => color.name.toLocaleLowerCase() === value.toLocaleLowerCase())
-				if ( found )
-					return false;
-				return true;
-			} )
-			ValidatorForm.addValidationRule( 'colorExists', ( value ) => {
-				const found = colors.some(({color}) => color === currentColor)
-				if ( found )
-					return false;
-				return true;
-			})
-		},[currentColor]
-	)
-
-	
+	useEffect(() => {
+		ValidatorForm.addValidationRule("colorNameExists", (value) => {
+			const found = colors.some(
+				(color) => color.name.toLocaleLowerCase() === value.toLocaleLowerCase()
+			);
+			if (found) return false;
+			return true;
+		});
+		ValidatorForm.addValidationRule("colorExists", (value) => {
+			const found = colors.some(({ color }) => color === currentColor);
+			if (found) return false;
+			return true;
+		});
+	}, [currentColor]);
 
 	const handleDrawerOpen = () => {
 		setOpen(true);
@@ -120,15 +112,25 @@ function NewPaletteForm() {
 	};
 
 	const addnewColor = () => {
-		const newColor = {color:currentColor, name: newColorName}
-		setColorsArray( [ ...colors, newColor ] )
-		isValidated('')
-	}
+		const newColor = { color: currentColor, name: newColorName };
+		setColorsArray([...colors, newColor]);
+		isValidated("");
+	};
 
-	const handleChange = ( e ) => {
-		isValidated( e.target.value );
+	const handleChange = (e) => {
+		isValidated(e.target.value);
+	};
+	const savePalette = () => {
+		let newName = "New test palette";
+		const newPalette = {
+			paletteName: newName,
+			id: newName.toLocaleLowerCase().replaceAll(" ", "-"),
+			colors: colors,
+		};
 
-	}
+		props.savePalette(newPalette);
+		navigate("/");
+	};
 
 	return (
 		<div className={classes.root}>
@@ -137,7 +139,8 @@ function NewPaletteForm() {
 				position='fixed'
 				className={clsx(classes.appBar, {
 					[classes.appBarShift]: open,
-				})}>
+				})}
+				color='default'>
 				<Toolbar>
 					<IconButton
 						color='inherit'
@@ -148,8 +151,12 @@ function NewPaletteForm() {
 						<MenuIcon />
 					</IconButton>
 					<Typography variant='h6' noWrap>
-						Persistent drawer
+						Add new Palette
 					</Typography>
+					<Button variant='contained' color='primary' onClick={savePalette}>
+						{" "}
+						Save Palette
+					</Button>
 				</Toolbar>
 			</AppBar>
 			<Drawer
@@ -183,29 +190,36 @@ function NewPaletteForm() {
 					color={currentColor}
 					onChangeComplete={(newColor) => setColor(newColor.hex)}
 				/>
-				<ValidatorForm onSubmit={addnewColor } >
-					<TextValidator value={ newColorName } onChange={ handleChange }
-						validators={ [ 'required','colorNameExists','colorExists' ] }
-						errorMessages={['This field is required', 'This color name already exists','This color is already picked'] } />
+				<ValidatorForm onSubmit={addnewColor}>
+					<TextValidator
+						value={newColorName}
+						onChange={handleChange}
+						validators={["required", "colorNameExists", "colorExists"]}
+						errorMessages={[
+							"This field is required",
+							"This color name already exists",
+							"This color is already picked",
+						]}
+					/>
 
 					<Button
-					style={{ backgroundColor: `${currentColor}` }}
-					variant='contained'
-					color='primary'
-					type="submit" >
-					Add Color
-				</Button>
+						style={{ backgroundColor: `${currentColor}` }}
+						variant='contained'
+						color='primary'
+						type='submit'>
+						Add Color
+					</Button>
 				</ValidatorForm>
-				
 			</Drawer>
 			<main
 				className={clsx(classes.content, {
 					[classes.contentShift]: open,
 				})}>
-				<div className={ classes.drawerHeader } />
-				
-				{ colors.map( col => <DraggableColorBox key={ v4() } color={ col.color } name={col.name } />)}
-				
+				<div className={classes.drawerHeader} />
+
+				{colors.map((col) => (
+					<DraggableColorBox key={v4()} color={col.color} name={col.name} />
+				))}
 			</main>
 		</div>
 	);
