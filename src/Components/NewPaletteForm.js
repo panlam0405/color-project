@@ -77,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function NewPaletteForm(props) {
-	const { palettes } = props;
+	const { palettes, maxLength } = props;
 
 	const classes = useStyles();
 	const theme = useTheme();
@@ -85,7 +85,7 @@ function NewPaletteForm(props) {
 
 	const [open, setOpen] = React.useState(true);
 	const [currentColor, setColor] = React.useState("#346efc");
-	const [colors, setColorsArray] = React.useState([]);
+	const [colors, setColorsArray] = React.useState(palettes[0].colors);
 	const [newColorName, isValidated] = React.useState("");
 	const [newPaletteName, setNewPalettename] = React.useState("");
 
@@ -144,6 +144,21 @@ function NewPaletteForm(props) {
 
 		props.savePalette(newPalette);
 		navigate("/");
+	};
+
+	const clearPalette = () => {
+		setColorsArray([]);
+	};
+	const addRandomColor = () => {
+		// pick from the existing colors in the Palettes
+		const allColors = palettes.map((palette) => palette.colors).flat();
+		let index = Math.floor(Math.random() * allColors.length);
+		let isColorUsed = colors.some(
+			(color) => color.name === allColors[index].name
+		);
+		let randomColor = allColors[index];
+		if (isColorUsed) addRandomColor();
+		else setColorsArray([...colors, randomColor]);
 	};
 
 	return (
@@ -207,10 +222,14 @@ function NewPaletteForm(props) {
 				<Divider />
 				<Typography variant='h4'>Design Your Palette</Typography>
 				<div>
-					<Button variant='contained' color='secondary'>
+					<Button variant='contained' color='secondary' onClick={clearPalette}>
 						Clear Palette
 					</Button>
-					<Button variant='contained' color='primary'>
+					<Button
+						variant='contained'
+						color='primary'
+						onClick={addRandomColor}
+						disabled={maxLength <= colors.length}>
 						Random Color
 					</Button>
 				</div>
@@ -235,7 +254,8 @@ function NewPaletteForm(props) {
 						style={{ backgroundColor: `${currentColor}` }}
 						variant='contained'
 						color='primary'
-						type='submit'>
+						type='submit'
+						disabled={maxLength <= colors.length}>
 						Add Color
 					</Button>
 				</ValidatorForm>
@@ -250,5 +270,9 @@ function NewPaletteForm(props) {
 		</div>
 	);
 }
+
+NewPaletteForm.defaultProps = {
+	maxLength: 20,
+};
 
 export default NewPaletteForm;
