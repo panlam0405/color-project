@@ -13,11 +13,9 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { ChromePicker } from "react-color";
 import { Button } from "@material-ui/core";
-import DraggableColorBox from "./DraggableColorBox";
-import { v4 } from "uuid";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import { useNavigate } from "react-router-dom";
-
+import DraggableColorList from "./DraggableColorList";
 const drawerWidth = 350;
 
 const useStyles = makeStyles((theme) => ({
@@ -247,15 +245,7 @@ function NewPaletteForm(props) {
 					[classes.contentShift]: open,
 				})}>
 				<div className={classes.drawerHeader} />
-
-				{colors.map((col) => (
-					<DraggableColorBox
-						key={v4()}
-						color={col.color}
-						name={col.name}
-						delete={handleDelete}
-					/>
-				))}
+				<DraggableColorList colors={colors} del={handleDelete} axis='xy' />
 			</main>
 		</div>
 	);
