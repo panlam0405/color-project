@@ -4,9 +4,9 @@ export const styles = {
 		height: "100vh",
 		display: "flex",
 		justifyContent: "center",
+		overflowY: "scroll",
 	},
 	container: {
-		width: "50%",
 		display: "flex",
 		alignItems: "flex-start",
 		flexDirection: "column",

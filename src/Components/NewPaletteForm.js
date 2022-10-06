@@ -16,6 +16,8 @@ import { Button } from "@material-ui/core";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import { useNavigate } from "react-router-dom";
 import DraggableColorList from "./DraggableColorList";
+import { Link } from "react-router-dom";
+import PaletteFormNavbar from "./PaletteFormNavbar";
 const drawerWidth = 350;
 
 const useStyles = makeStyles((theme) => ({
@@ -109,10 +111,6 @@ function NewPaletteForm(props) {
 		});
 	});
 
-	const handleDrawerOpen = () => {
-		setOpen(true);
-	};
-
 	const handleDrawerClose = () => {
 		setOpen(false);
 	};
@@ -134,7 +132,7 @@ function NewPaletteForm(props) {
 		setColorsArray(newColors);
 	};
 
-	const savePalette = () => {
+	const savePalette = (newPaletteName) => {
 		let newName = newPaletteName;
 		const newPalette = {
 			paletteName: newName,
@@ -163,45 +161,12 @@ function NewPaletteForm(props) {
 
 	return (
 		<div className={classes.root}>
-			<CssBaseline />
-			<AppBar
-				position='fixed'
-				className={clsx(classes.appBar, {
-					[classes.appBarShift]: open,
-				})}
-				color='default'>
-				<Toolbar>
-					<IconButton
-						color='inherit'
-						aria-label='open drawer'
-						onClick={handleDrawerOpen}
-						edge='start'
-						className={clsx(classes.menuButton, open && classes.hide)}>
-						<MenuIcon />
-					</IconButton>
-					<Typography variant='h6' noWrap>
-						Add new Palette
-					</Typography>
-					<ValidatorForm onSubmit={savePalette}>
-						<Button variant='contained' color='primary' type='submit'>
-							{" "}
-							Save Palette
-						</Button>
-
-						<TextValidator
-							value={newPaletteName}
-							name='setNewPalletteName'
-							label='palleteName'
-							onChange={handleChange}
-							validators={["required", "isPaletteNameUnique"]}
-							errorMessages={[
-								"The Palettes Name Needs To Be Filled",
-								"This name already exists",
-							]}
-						/>
-					</ValidatorForm>
-				</Toolbar>
-			</AppBar>
+			<PaletteFormNavbar
+				savePalette={savePalette}
+				classes={classes}
+				open={open}
+				setOpen={setOpen}
+			/>
 			<Drawer
 				className={classes.drawer}
 				variant='persistent'
