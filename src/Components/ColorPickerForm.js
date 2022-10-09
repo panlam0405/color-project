@@ -2,6 +2,24 @@ import React, { useEffect } from "react";
 import { ChromePicker } from "react-color";
 import { Button } from "@material-ui/core";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles(() => ({
+	picker: {
+		width: "100% !important",
+		marginTop: "2rem",
+	},
+	addColor: {
+		width: "100%",
+		padding: "1rem",
+		marginTop: "1rem",
+		fontSize: "2rem",
+	},
+	colorInputName: {
+		width: "100%",
+		height: "70px",
+	},
+}));
 
 export default function ColorPickerForm(props) {
 	const {
@@ -14,6 +32,7 @@ export default function ColorPickerForm(props) {
 		colors,
 		palettes,
 	} = props;
+	const classes = useStyles();
 
 	useEffect(() => {
 		ValidatorForm.addValidationRule("colorNameExists", (value) => {
@@ -35,14 +54,17 @@ export default function ColorPickerForm(props) {
 		});
 	});
 	return (
-		<div>
+		<div style={{ width: "100%" }}>
 			<ChromePicker
+				className={classes.picker}
 				color={currentColor}
 				onChangeComplete={(newColor) => setColor(newColor.hex)}
 			/>
 			<ValidatorForm onSubmit={addnewColor}>
 				<TextValidator
 					value={newColorName}
+					variant='filled'
+					margin='normal'
 					name='setNewColorName'
 					onChange={handleChange}
 					validators={["required", "colorNameExists", "colorExists"]}
@@ -51,6 +73,8 @@ export default function ColorPickerForm(props) {
 						"This color name already exists",
 						"This color is already picked",
 					]}
+					className={classes.colorInputName}
+					placeholder='Color Name'
 				/>
 
 				<Button
@@ -58,7 +82,8 @@ export default function ColorPickerForm(props) {
 					variant='contained'
 					color='primary'
 					type='submit'
-					disabled={maxLength <= colors.length}>
+					disabled={maxLength <= colors.length}
+					className={classes.addColor}>
 					Add Color
 				</Button>
 			</ValidatorForm>
