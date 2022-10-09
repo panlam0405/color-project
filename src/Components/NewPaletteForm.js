@@ -2,13 +2,9 @@ import React, { useEffect } from "react";
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { ChromePicker } from "react-color";
@@ -16,8 +12,8 @@ import { Button } from "@material-ui/core";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import { useNavigate } from "react-router-dom";
 import DraggableColorList from "./DraggableColorList";
-import { Link } from "react-router-dom";
 import PaletteFormNavbar from "./PaletteFormNavbar";
+import ColorPickerForm from "./ColorPickerForm";
 const drawerWidth = 350;
 
 const useStyles = makeStyles((theme) => ({
@@ -90,26 +86,6 @@ function NewPaletteForm(props) {
 	const [colors, setColorsArray] = React.useState(palettes[0].colors);
 	const [newColorName, isValidated] = React.useState("");
 	const [newPaletteName, setNewPalettename] = React.useState("");
-
-	useEffect(() => {
-		ValidatorForm.addValidationRule("colorNameExists", (value) => {
-			const found = colors.some(
-				(color) => color.name.toLocaleLowerCase() === value.toLocaleLowerCase()
-			);
-			if (found) return false;
-			return true;
-		});
-		ValidatorForm.addValidationRule("colorExists", (value) => {
-			const found = colors.some(({ color }) => color === currentColor);
-			if (found) return false;
-			return true;
-		});
-		ValidatorForm.addValidationRule("isPaletteNameUnique", (value) => {
-			const found = palettes.some(({ paletteName }) => value === paletteName);
-			if (found) return false;
-			return true;
-		});
-	});
 
 	const handleDrawerClose = () => {
 		setOpen(false);
@@ -198,32 +174,16 @@ function NewPaletteForm(props) {
 						Random Color
 					</Button>
 				</div>
-				<ChromePicker
-					color={currentColor}
-					onChangeComplete={(newColor) => setColor(newColor.hex)}
+				<ColorPickerForm
+					currentColor={currentColor}
+					setColor={setColor}
+					colors={colors}
+					maxLength={maxLength}
+					handleChange={handleChange}
+					newColorName={newColorName}
+					addnewColor={addnewColor}
+					palettes={palettes}
 				/>
-				<ValidatorForm onSubmit={addnewColor}>
-					<TextValidator
-						value={newColorName}
-						name='setNewColorName'
-						onChange={handleChange}
-						validators={["required", "colorNameExists", "colorExists"]}
-						errorMessages={[
-							"This field is required",
-							"This color name already exists",
-							"This color is already picked",
-						]}
-					/>
-
-					<Button
-						style={{ backgroundColor: `${currentColor}` }}
-						variant='contained'
-						color='primary'
-						type='submit'
-						disabled={maxLength <= colors.length}>
-						Add Color
-					</Button>
-				</ValidatorForm>
 			</Drawer>
 			<main
 				className={clsx(classes.content, {

@@ -25,6 +25,7 @@ export const styles = {
 	palettes: {
 		boxSizing: "border-box",
 		width: "100%",
+		height: "70%",
 		display: "grid",
 		gridTemplateColumns: "repeat(3,30%)",
 		gridGap: "5%",
