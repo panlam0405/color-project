@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import clsx from "clsx";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
 		}),
 		flexDirection: "row",
 		justifyContent: "space-between",
+		alignItems: "center",
 		height: "64px",
 	},
 	appBarShift: {
@@ -39,7 +40,15 @@ const useStyles = makeStyles((theme) => ({
 	hide: {
 		display: "none",
 	},
-	navBtns: {},
+	navBtns: {
+		marginRight: "1rem",
+	},
+	button: {
+		margin: "0 0.5rem",
+	},
+	link: {
+		textDecoration: "none",
+	},
 }));
 
 function PaletteFormNavbar(props) {
@@ -63,6 +72,11 @@ function PaletteFormNavbar(props) {
 			setNewPalettename(e.target.value);
 	};
 
+	const [formShow, setFormShow] = useState(false);
+
+	const handleFormClicks = () => {
+		setFormShow(!formShow);
+	};
 	return (
 		<div className={classes.root}>
 			<CssBaseline />
@@ -87,19 +101,34 @@ function PaletteFormNavbar(props) {
 				</Toolbar>
 				<div className={classes.navBtns}>
 					{/*  */}
-					<PaletteMetaForm
-						newPaletteName={newPaletteName}
-						handleChange={handleChange}
-						savePalette={savePalette}
-						palettes={palettes}
-					/>
-					<Link to='/'>
-						<Button variant='contained' color='secondary'>
+
+					<Link to='/' className={classes.link}>
+						<Button
+							variant='contained'
+							color='secondary'
+							className={classes.button}>
 							Go Back
 						</Button>
 					</Link>
+					<Button
+						variant='contained'
+						color='primary'
+						onClick={handleFormClicks}
+						className={classes.button}>
+						Save Palette
+					</Button>
 				</div>
 			</AppBar>
+			{formShow && (
+				<PaletteMetaForm
+					newPaletteName={newPaletteName}
+					handleChange={handleChange}
+					savePalette={savePalette}
+					palettes={palettes}
+					open={formShow}
+					handleFormClicks={handleFormClicks}
+				/>
+			)}
 		</div>
 	);
 }

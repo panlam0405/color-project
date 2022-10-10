@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "@mui/material/Button";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import Dialog from "@mui/material/Dialog";
@@ -6,18 +6,9 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { useEffect } from "react";
 
 export default function PaletteMetaForm(props) {
-	const [open, setOpen] = React.useState(false);
-
-	const handleClickOpen = () => {
-		setOpen(true);
-	};
-
-	const handleClose = () => {
-		setOpen(false);
-	};
+	const { open, handleFormClicks } = props;
 
 	const { handleChange, newPaletteName, savePalette, palettes } = props;
 
@@ -30,22 +21,22 @@ export default function PaletteMetaForm(props) {
 	});
 	return (
 		<div>
-			<Button variant='outlined' onClick={handleClickOpen}>
-				Open form dialog
-			</Button>
-			<Dialog open={open} onClose={handleClose}>
-				<DialogTitle>Subscribe</DialogTitle>
-				<DialogContent>
-					<DialogContentText>
-						To subscribe to this website, please enter your email address here.
-						We will send updates occasionally.
-					</DialogContentText>
-					<ValidatorForm
-						onSubmit={() => {
-							savePalette(newPaletteName);
-						}}>
+			<Dialog open={open} onClose={handleFormClicks}>
+				<DialogTitle>Choose A Palette Name</DialogTitle>
+				<ValidatorForm
+					onSubmit={() => {
+						savePalette(newPaletteName);
+					}}>
+					<DialogContent>
+						<DialogContentText>
+							Choose a name for your new beautiful palette. Make sure it's
+							Unique!
+						</DialogContentText>
+
 						<TextValidator
 							value={newPaletteName}
+							fullWidth
+							margin='normal'
 							name='setNewPalletteName'
 							label='palleteName'
 							variant='filled'
@@ -56,15 +47,14 @@ export default function PaletteMetaForm(props) {
 								"This name already exists",
 							]}
 						/>
+					</DialogContent>
+					<DialogActions>
+						<Button onClick={handleFormClicks}>Cancel</Button>
 						<Button variant='contained' color='primary' type='submit'>
 							Save Palette
-						</Button>
-					</ValidatorForm>
-				</DialogContent>
-				<DialogActions>
-					<Button onClick={handleClose}>Cancel</Button>
-					<Button onClick={handleClose}>Subscribe</Button>
-				</DialogActions>
+						</Button>{" "}
+					</DialogActions>
+				</ValidatorForm>
 			</Dialog>
 		</div>
 	);
