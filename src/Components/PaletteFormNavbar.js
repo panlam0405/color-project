@@ -7,9 +7,9 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import { Button } from "@material-ui/core";
-import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import { Link } from "react-router-dom";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
+import PaletteMetaForm from "./PaletteMetaForm";
 const drawerWidth = 350;
 
 const useStyles = makeStyles((theme) => ({
@@ -43,10 +43,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function PaletteFormNavbar(props) {
-	const { savePalette, open, setOpen } = props;
+	const {
+		palettes,
+		savePalette,
+		open,
+		setOpen,
+		newPaletteName,
+		setNewPalettename,
+		isValidated,
+	} = props;
 	const classes = useStyles();
-	const [newColorName, isValidated] = React.useState("");
-	const [newPaletteName, setNewPalettename] = React.useState("");
 
 	const handleDrawerOpen = () => {
 		setOpen(!open);
@@ -80,26 +86,13 @@ function PaletteFormNavbar(props) {
 					</Typography>
 				</Toolbar>
 				<div className={classes.navBtns}>
-					<ValidatorForm
-						onSubmit={() => {
-							savePalette(newPaletteName);
-						}}>
-						<TextValidator
-							value={newPaletteName}
-							name='setNewPalletteName'
-							label='palleteName'
-							onChange={handleChange}
-							validators={["required", "isPaletteNameUnique"]}
-							errorMessages={[
-								"The Palettes Name Needs To Be Filled",
-								"This name already exists",
-							]}
-						/>
-						<Button variant='contained' color='primary' type='submit'>
-							Save Palette
-						</Button>
-					</ValidatorForm>
-
+					{/*  */}
+					<PaletteMetaForm
+						newPaletteName={newPaletteName}
+						handleChange={handleChange}
+						savePalette={savePalette}
+						palettes={palettes}
+					/>
 					<Link to='/'>
 						<Button variant='contained' color='secondary'>
 							Go Back

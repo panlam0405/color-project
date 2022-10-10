@@ -136,6 +136,10 @@ function NewPaletteForm(props) {
 				savePalette={savePalette}
 				open={open}
 				setOpen={setOpen}
+				newPaletteName={newPaletteName}
+				setNewPalettename={setNewPalettename}
+				isValidated={isValidated}
+				palettes={palettes}
 			/>
 			<Drawer
 				className={classes.drawer}
@@ -184,7 +188,6 @@ function NewPaletteForm(props) {
 						handleChange={handleChange}
 						newColorName={newColorName}
 						addnewColor={addnewColor}
-						palettes={palettes}
 					/>
 				</div>
 			</Drawer>

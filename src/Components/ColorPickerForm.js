@@ -30,7 +30,6 @@ export default function ColorPickerForm(props) {
 		handleChange,
 		maxLength,
 		colors,
-		palettes,
 	} = props;
 	const classes = useStyles();
 
@@ -44,11 +43,6 @@ export default function ColorPickerForm(props) {
 		});
 		ValidatorForm.addValidationRule("colorExists", (value) => {
 			const found = colors.some(({ color }) => color === currentColor);
-			if (found) return false;
-			return true;
-		});
-		ValidatorForm.addValidationRule("isPaletteNameUnique", (value) => {
-			const found = palettes.some(({ paletteName }) => value === paletteName);
 			if (found) return false;
 			return true;
 		});
