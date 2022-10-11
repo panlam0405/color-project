@@ -6,6 +6,8 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import data from "@emoji-mart/data";
+import Picker from "@emoji-mart/react";
 
 export default function PaletteMetaForm(props) {
 	const { open, handleFormClicks } = props;
@@ -28,6 +30,7 @@ export default function PaletteMetaForm(props) {
 						savePalette(newPaletteName);
 					}}>
 					<DialogContent>
+						<Picker data={data} onEmojiSelect={console.log} />
 						<DialogContentText>
 							Choose a name for your new beautiful palette. Make sure it's
 							Unique!
