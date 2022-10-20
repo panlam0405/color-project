@@ -9,6 +9,7 @@ import { useState } from "react";
 function App(props) {
 	const [col, setColor] = useState(colors);
 	const savePalette = (newPalette) => {
+		console.log("new Palette", newPalette);
 		setColor([...col, newPalette]);
 	};
 

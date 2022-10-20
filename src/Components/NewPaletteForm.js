@@ -103,12 +103,13 @@ function NewPaletteForm(props) {
 		setColorsArray(newColors);
 	};
 
-	const savePalette = (newPaletteName) => {
-		let newName = newPaletteName;
+	const savePalettewithEm = (newPaletteNameAndEmoji) => {
+		let { paletteName, emoji } = newPaletteNameAndEmoji;
 		const newPalette = {
-			paletteName: newName,
-			id: newName.toLocaleLowerCase().replaceAll(" ", "-"),
+			paletteName: paletteName,
+			id: paletteName.toLocaleLowerCase().replaceAll(" ", "-"),
 			colors: colors,
+			emoji,
 		};
 
 		props.savePalette(newPalette);
@@ -133,7 +134,7 @@ function NewPaletteForm(props) {
 	return (
 		<div className={classes.root}>
 			<PaletteFormNavbar
-				savePalette={savePalette}
+				savePalette={savePalettewithEm}
 				open={open}
 				setOpen={setOpen}
 				newPaletteName={newPaletteName}

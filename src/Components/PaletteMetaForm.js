@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import Dialog from "@mui/material/Dialog";
@@ -13,7 +13,19 @@ export default function PaletteMetaForm(props) {
 	const { open, handleFormClicks } = props;
 
 	const { handleChange, newPaletteName, savePalette, palettes } = props;
+	const [openEmojiForm, setEmojiFormState] = useState(false);
 
+	const handleEmojiForm = (e) => {
+		e.preventDefault();
+		setEmojiFormState(!openEmojiForm);
+	};
+	const savePaletteWithEmoji = (emoji) => {
+		const newPalette = {
+			paletteName: newPaletteName,
+			emoji,
+		};
+		savePalette(newPalette);
+	};
 	useEffect(() => {
 		ValidatorForm.addValidationRule("isPaletteNameUnique", (value) => {
 			const found = palettes.some(({ paletteName }) => value === paletteName);
@@ -23,14 +35,20 @@ export default function PaletteMetaForm(props) {
 	});
 	return (
 		<div>
+			<Dialog open={openEmojiForm} onClose={handleFormClicks}>
+				<Picker
+					data={data}
+					onEmojiSelect={(item) => {
+						let emoji = item.native;
+						savePaletteWithEmoji(emoji);
+						setEmojiFormState(!openEmojiForm);
+					}}
+				/>
+			</Dialog>
 			<Dialog open={open} onClose={handleFormClicks}>
 				<DialogTitle>Choose A Palette Name</DialogTitle>
-				<ValidatorForm
-					onSubmit={() => {
-						savePalette(newPaletteName);
-					}}>
+				<ValidatorForm onSubmit={handleEmojiForm}>
 					<DialogContent>
-						<Picker data={data} onEmojiSelect={console.log} />
 						<DialogContentText>
 							Choose a name for your new beautiful palette. Make sure it's
 							Unique!
