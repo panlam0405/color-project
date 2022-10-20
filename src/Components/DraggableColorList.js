@@ -7,7 +7,7 @@ const DraggableColorList = SortableContainer((props) => {
 	const { colors, del } = props;
 
 	return (
-		<div style={{ height: "100%", marginTop: "1rem" }}>
+		<div style={{ height: "95%", marginTop: "1rem" }}>
 			{colors.map((col, idx) => (
 				<DraggableColorBox
 					key={v4()}
