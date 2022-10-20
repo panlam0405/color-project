@@ -4,14 +4,20 @@ import { Routes, Route } from "react-router-dom";
 import { colors } from "../seedColors";
 import History from "./History";
 import NewPaletteForm from "./NewPaletteForm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function App(props) {
-	const [col, setColor] = useState(colors);
+	const savedPalettes = JSON.parse(window.localStorage.getItem("palettes"));
+	const [col, setColor] = useState(savedPalettes || colors);
 	const savePalette = (newPalette) => {
 		console.log("new Palette", newPalette);
 		setColor([...col, newPalette]);
 	};
+
+	const syncLocalStorage = () => {
+		window.localStorage.setItem("palettes", JSON.stringify(col));
+	};
+	useEffect(syncLocalStorage, [col]);
 
 	return (
 		<div className='App'>
