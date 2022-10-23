@@ -12,14 +12,18 @@ function MiniPalette(props) {
 			className={classes.miniColorBoxes}
 			style={{ backgroundColor: color.color }}></div>
 	));
+
+	const deletePalette = (e) => {
+		e.stopPropagation();
+		props.removePalette(props.id);
+	};
 	return (
 		<div className={classes.root} onClick={props.handleClick}>
-			<div className={classes.delete}>
-				<DeleteOutlineTwoTone
-					className={classes.delete_icon}
-					style={{ transition: "all .3s ease-in-out" }}
-				/>
-			</div>
+			<DeleteOutlineTwoTone
+				className={classes.delete_icon}
+				style={{ transition: "all .3s ease-in-out" }}
+				onClick={(e) => deletePalette(e)}
+			/>
 			<div className={classes.colors}>{miniColorBoxes}</div>
 			<h5 className={classes.title}>
 				{paletteName} <span className={classes.emoji}>{emoji}</span>

@@ -19,6 +19,9 @@ function App(props) {
 	};
 	useEffect(syncLocalStorage, [col]);
 
+	const removePalette = (id) => {
+		setColor(col.filter((palette) => palette.id !== id));
+	};
 	return (
 		<div className='App'>
 			<Routes>
@@ -27,7 +30,11 @@ function App(props) {
 					path='/palette/new'
 					element={<NewPaletteForm savePalette={savePalette} palettes={col} />}
 				/>
-				<Route exact path='/' element={<History palettes={col} />} />
+				<Route
+					exact
+					path='/'
+					element={<History palettes={col} removePalette={removePalette} />}
+				/>
 				<Route exact path='/palette/:id' element={<Params colors={col} />} />
 				<Route exact path='/palette/:paletteId/:colorId' element={<Params />} />
 			</Routes>

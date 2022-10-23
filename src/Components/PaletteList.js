@@ -16,6 +16,8 @@ class PaletteList extends Component {
 				key={v4()}
 				{...palette}
 				handleClick={() => this.gotoPalette(palette.id)}
+				id={palette.id}
+				removePalette={this.props.removePalette}
 			/>
 		));
 		return (

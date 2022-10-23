@@ -7,7 +7,7 @@ export const styles = {
 		position: "relative",
 		cursor: "pointer",
 
-		"&:hover > :first-child > svg": {
+		"&:hover > :first-child ": {
 			opacity: "1",
 		},
 	},
@@ -38,7 +38,6 @@ export const styles = {
 		margin: "-2px auto",
 		display: "inline-block",
 	},
-	delete: {},
 	delete_icon: {
 		color: "white",
 		backgroundColor: "#eb3d30",
