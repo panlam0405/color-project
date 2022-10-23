@@ -21,7 +21,7 @@ export const styles = {
 		},
 		[sizes.down("md")]: {
 			width: "50%",
-			height: (props) => (props.showingFullColorPalette ? "10%" : "33%"),
+			height: (props) => (props.showingFullColorPalette ? "10%" : "20%"),
 		},
 		[sizes.down("sm")]: {
 			width: "50%",
@@ -126,6 +126,10 @@ export const styles = {
 			margin: "0",
 			padding: "1rem",
 			textTransform: "uppercase",
+
+			[sizes.down("xs")]: {
+				fontSize: "4rem",
+			},
 		},
 		"& p": {
 			fontSize: "2rem",

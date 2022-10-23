@@ -1,3 +1,5 @@
+import sizes from "./sizes";
+
 export const styles = {
 	palette: {
 		height: "100vh",
@@ -42,6 +44,19 @@ export const styles = {
 		cursor: "pointer",
 		marginBottom: "-4.5px",
 		backgroundColor: " #000",
+
+		[sizes.down("lg")]: {
+			width: "25%",
+			height: "33%",
+		},
+		[sizes.down("md")]: {
+			width: "50%",
+			height: "20%",
+		},
+		[sizes.down("xs")]: {
+			width: "100%",
+			height: "10%",
+		},
 	},
 	backButton: {
 		width: "100px",
