@@ -36,7 +36,11 @@ function App(props) {
 					element={<History palettes={col} removePalette={removePalette} />}
 				/>
 				<Route exact path='/palette/:id' element={<Params colors={col} />} />
-				<Route exact path='/palette/:paletteId/:colorId' element={<Params />} />
+				<Route
+					exact
+					path='/palette/:paletteId/:colorId'
+					element={<Params colors={col} />}
+				/>
 			</Routes>
 		</div>
 	);
