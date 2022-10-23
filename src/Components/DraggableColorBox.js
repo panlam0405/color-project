@@ -1,8 +1,9 @@
 import React from "react";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import { useStyles } from "../styles/DraggableColorBox.styles";
+import { SortableElement } from "react-sortable-hoc";
 
-function DraggableColorBox(props) {
+const DraggableColorBox = SortableElement((props) => {
 	const { color, name } = props;
 	const classes = useStyles();
 
@@ -17,6 +18,6 @@ function DraggableColorBox(props) {
 			</div>
 		</div>
 	);
-}
+});
 
 export default DraggableColorBox;

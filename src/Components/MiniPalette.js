@@ -2,6 +2,7 @@ import React from "react";
 import { withStyles } from "@material-ui/styles";
 import { v4 } from "uuid";
 import { styles } from "../styles/MiniPalette.styles";
+import { DeleteOutlineTwoTone } from "@mui/icons-material";
 
 function MiniPalette(props) {
 	const { classes, paletteName, emoji, colors } = props;
@@ -11,9 +12,14 @@ function MiniPalette(props) {
 			className={classes.miniColorBoxes}
 			style={{ backgroundColor: color.color }}></div>
 	));
-
 	return (
 		<div className={classes.root} onClick={props.handleClick}>
+			<div className={classes.delete}>
+				<DeleteOutlineTwoTone
+					className={classes.delete_icon}
+					style={{ transition: "all .3s ease-in-out" }}
+				/>
+			</div>
 			<div className={classes.colors}>{miniColorBoxes}</div>
 			<h5 className={classes.title}>
 				{paletteName} <span className={classes.emoji}>{emoji}</span>

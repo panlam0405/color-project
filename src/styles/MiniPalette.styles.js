@@ -5,8 +5,10 @@ export const styles = {
 		borderRadius: "5px",
 		padding: "0.5rem",
 		position: "relative",
-		"& :hover": {
-			cursor: "pointer",
+		cursor: "pointer",
+
+		"&:hover > :first-child > svg": {
+			opacity: "1",
 		},
 	},
 	colors: {
@@ -35,5 +37,18 @@ export const styles = {
 		width: "20%",
 		margin: "-2px auto",
 		display: "inline-block",
+	},
+	delete: {},
+	delete_icon: {
+		color: "white",
+		backgroundColor: "#eb3d30",
+		height: "25px",
+		width: "25px",
+		position: "absolute",
+		top: "0",
+		right: "0",
+		padding: "10px",
+		zIndex: "5",
+		opacity: "0",
 	},
 };
