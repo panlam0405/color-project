@@ -1,3 +1,5 @@
+import sizes from "./sizes";
+
 export const styles = {
 	Navbar: {
 		width: "98%",
@@ -21,6 +23,9 @@ export const styles = {
 			textDecoration: "none",
 			color: "black",
 		},
+		[sizes.down("xs")]: {
+			display: "none",
+		},
 	},
 
 	sliderLevel: {
@@ -43,7 +48,7 @@ export const styles = {
 	},
 
 	slider: {
-		width: "-webkit-fill-available",
+		width: "340px",
 		"& .rc-slider-track": {
 			backgroundColor: "transparent",
 		},
@@ -63,6 +68,9 @@ export const styles = {
 				marginLeft: "-7px",
 				marginTop: "-3px",
 			},
+		[sizes.down("md")]: {
+			width: "150px",
+		},
 	},
 	selectContainer: {
 		marginLeft: "auto",

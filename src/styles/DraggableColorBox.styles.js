@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
-
+import sizes from "./sizes";
 export const useStyles = makeStyles(() => ({
 	root: {
 		width: "20%",
@@ -14,6 +14,18 @@ export const useStyles = makeStyles(() => ({
 			color: "#fff",
 			scale: "1.2",
 		},
+		[sizes.down("lg")]: {
+			width: "25%",
+			height: "20%",
+		},
+		[sizes.down("md")]: {
+			width: "50%",
+			height: "10%",
+		},
+		[sizes.down("sm")]: {
+			width: "100%",
+			height: "5%",
+		},
 	},
 	boxContent: {
 		position: "absolute",
@@ -27,6 +39,16 @@ export const useStyles = makeStyles(() => ({
 		display: "flex",
 		justifyContent: "space-between",
 		color: "rgba(0,0,0,0.5)",
+		alignItems: "flex-end",
+
+		[sizes.down("sm")]: {
+			"& > span": {
+				marginBottom: "-6px !Important",
+			},
+			"& > svg": {
+				marginBottom: "-7px !Important",
+			},
+		},
 	},
 	deleteIcon: {
 		transition: "all 0.7s ease",
