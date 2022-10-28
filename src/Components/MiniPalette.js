@@ -5,7 +5,7 @@ import { styles } from "../styles/MiniPalette.styles";
 import { DeleteOutlineTwoTone } from "@mui/icons-material";
 
 function MiniPalette(props) {
-	const { classes, paletteName, emoji, colors } = props;
+	const { classes, paletteName, emoji, colors, openDialog, id } = props;
 	const miniColorBoxes = colors.map((color) => (
 		<div
 			key={v4()}
@@ -13,16 +13,16 @@ function MiniPalette(props) {
 			style={{ backgroundColor: color.color }}></div>
 	));
 
-	const deletePalette = (e) => {
-		e.stopPropagation();
-		props.removePalette(props.id);
-	};
+	// const deletePalette = (e) => {
+	// 	e.stopPropagation();
+	// 	props.removePalette(props.id);
+	// };
 	return (
 		<div className={classes.root} onClick={props.handleClick}>
 			<DeleteOutlineTwoTone
 				className={classes.delete_icon}
 				style={{ transition: "all .3s ease-in-out" }}
-				onClick={(e) => deletePalette(e)}
+				onClick={(e) => openDialog(e, id)}
 			/>
 			<div className={classes.colors}>{miniColorBoxes}</div>
 			<h5 className={classes.title}>

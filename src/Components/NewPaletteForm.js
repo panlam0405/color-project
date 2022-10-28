@@ -142,7 +142,12 @@ function NewPaletteForm(props) {
 					[classes.contentShift]: open,
 				})}>
 				<div className={classes.drawerHeader} />
-				<DraggableColorList colors={colors} del={handleDelete} axis='xy' />
+				<DraggableColorList
+					colors={colors}
+					del={handleDelete}
+					distance={1}
+					axis='xy'
+				/>
 			</main>
 		</div>
 	);
