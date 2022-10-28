@@ -6,6 +6,7 @@ export const styles = {
 		padding: "0.5rem",
 		position: "relative",
 		cursor: "pointer",
+		height: "fit-content",
 
 		"&:hover > :first-child ": {
 			opacity: "1",

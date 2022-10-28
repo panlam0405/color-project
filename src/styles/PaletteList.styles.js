@@ -1,4 +1,5 @@
 import sizes from "./sizes";
+import bg from "./bg.svg/confetti-doodles.svg";
 
 export const styles = {
 	root: {
@@ -7,6 +8,8 @@ export const styles = {
 		display: "flex",
 		justifyContent: "center",
 		overflowY: "scroll",
+		/* 		background by SVGbackgrounds.com */
+		backgroundImage: `url(${bg})`,
 	},
 	container: {
 		width: "50%",
@@ -39,7 +42,7 @@ export const styles = {
 	palettes: {
 		boxSizing: "border-box",
 		width: "100%",
-		height: "70%",
+		height: "auto",
 		display: "grid",
 		gridTemplateColumns: "repeat(3,30%)",
 		gridGap: "5%",
