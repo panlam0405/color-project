@@ -34,9 +34,9 @@ export const styles = {
 		fontSize: "1.5rem",
 	},
 	miniColorBoxes: {
-		height: "25%",
+		height: "27%",
 		width: "20%",
-		margin: "-2px auto",
+		margin: "-3px auto",
 		display: "inline-block",
 	},
 	delete_icon: {

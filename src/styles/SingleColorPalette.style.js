@@ -29,7 +29,7 @@ export const styles = {
 		display: "inline-block",
 		position: "relative",
 		cursor: "pointer",
-		marginBottom: "-4.5px",
+		marginBottom: "-5.5px",
 		"&:hover button": {
 			opacity: "1",
 			transition: ".7s",

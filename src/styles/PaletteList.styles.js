@@ -14,6 +14,7 @@ export const styles = {
 	container: {
 		width: "50%",
 		display: "flex",
+		height: "fit-content",
 		alignItems: "flex-start",
 		flexDirection: "column",
 		flexWrap: "wrap",
