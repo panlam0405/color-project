@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { generatePalette } from "../colorHelpers";
+import AnimationLayout from "./AnimationLayout";
 // import { colors } from "../seedColors";
 import Palette from "./Palette";
 import SingleColorPalette from "./SingleColorPalette";
@@ -18,12 +19,16 @@ export default function Params(props) {
 	console.log(id);
 
 	return id !== undefined ? (
-		<Palette palette={findPalette(id)} />
+		<AnimationLayout>
+			<Palette palette={findPalette(id)} />
+		</AnimationLayout>
 	) : (
-		<SingleColorPalette
-			palette={findPalette(paletteId)}
-			paletteId={paletteId}
-			colorId={colorId}
-		/>
+		<AnimationLayout>
+			<SingleColorPalette
+				palette={findPalette(paletteId)}
+				paletteId={paletteId}
+				colorId={colorId}
+			/>
+		</AnimationLayout>
 	);
 }

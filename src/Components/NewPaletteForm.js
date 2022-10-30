@@ -13,6 +13,7 @@ import DraggableColorList from "./DraggableColorList";
 import PaletteFormNavbar from "./PaletteFormNavbar";
 import ColorPickerForm from "./ColorPickerForm";
 import { useStyles } from "../styles/newPaletteForm.styles";
+import AnimationLayout from "./AnimationLayout";
 
 function NewPaletteForm(props) {
 	const { palettes, maxLength } = props;
@@ -77,79 +78,81 @@ function NewPaletteForm(props) {
 	};
 
 	return (
-		<div className={classes.root}>
-			<PaletteFormNavbar
-				savePalette={savePalettewithEm}
-				open={open}
-				setOpen={setOpen}
-				newPaletteName={newPaletteName}
-				setNewPalettename={setNewPalettename}
-				isValidated={isValidated}
-				palettes={palettes}
-			/>
-			<Drawer
-				className={classes.drawer}
-				variant='persistent'
-				anchor='left'
-				open={open}
-				classes={{
-					paper: classes.drawerPaper,
-				}}>
-				<div className={classes.drawerHeader}>
-					<IconButton onClick={handleDrawerClose}>
-						{theme.direction === "ltr" ? (
-							<ChevronLeftIcon />
-						) : (
-							<ChevronRightIcon />
-						)}
-					</IconButton>
-				</div>
-				<Divider />
-				<div className={classes.container}>
-					<Typography variant='h4' gutterBottom>
-						Design Your Palette
-					</Typography>
-					<div className={classes.buttons}>
-						<Button
-							variant='contained'
-							color='secondary'
-							onClick={clearPalette}
-							className={classes.button}>
-							Clear Palette
-						</Button>
-						<Button
-							variant='contained'
-							color='primary'
-							onClick={addRandomColor}
-							disabled={maxLength <= colors.length}
-							className={classes.button}>
-							Random Color
-						</Button>
-					</div>
-					<ColorPickerForm
-						currentColor={currentColor}
-						setColor={setColor}
-						colors={colors}
-						maxLength={maxLength}
-						handleChange={handleChange}
-						newColorName={newColorName}
-						addnewColor={addnewColor}
-					/>
-				</div>
-			</Drawer>
-			<main
-				className={clsx(classes.content, {
-					[classes.contentShift]: open,
-				})}>
-				<div className={classes.drawerHeader} />
-				<DraggableColorList
-					colors={colors}
-					del={handleDelete}
-					distance={1}
-					axis='xy'
+		<AnimationLayout>
+			<div className={classes.root}>
+				<PaletteFormNavbar
+					savePalette={savePalettewithEm}
+					open={open}
+					setOpen={setOpen}
+					newPaletteName={newPaletteName}
+					setNewPalettename={setNewPalettename}
+					isValidated={isValidated}
+					palettes={palettes}
 				/>
-			</main>
-		</div>
+				<Drawer
+					className={classes.drawer}
+					variant='persistent'
+					anchor='left'
+					open={open}
+					classes={{
+						paper: classes.drawerPaper,
+					}}>
+					<div className={classes.drawerHeader}>
+						<IconButton onClick={handleDrawerClose}>
+							{theme.direction === "ltr" ? (
+								<ChevronLeftIcon />
+							) : (
+								<ChevronRightIcon />
+							)}
+						</IconButton>
+					</div>
+					<Divider />
+					<div className={classes.container}>
+						<Typography variant='h4' gutterBottom>
+							Design Your Palette
+						</Typography>
+						<div className={classes.buttons}>
+							<Button
+								variant='contained'
+								color='secondary'
+								onClick={clearPalette}
+								className={classes.button}>
+								Clear Palette
+							</Button>
+							<Button
+								variant='contained'
+								color='primary'
+								onClick={addRandomColor}
+								disabled={maxLength <= colors.length}
+								className={classes.button}>
+								Random Color
+							</Button>
+						</div>
+						<ColorPickerForm
+							currentColor={currentColor}
+							setColor={setColor}
+							colors={colors}
+							maxLength={maxLength}
+							handleChange={handleChange}
+							newColorName={newColorName}
+							addnewColor={addnewColor}
+						/>
+					</div>
+				</Drawer>
+				<main
+					className={clsx(classes.content, {
+						[classes.contentShift]: open,
+					})}>
+					<div className={classes.drawerHeader} />
+					<DraggableColorList
+						colors={colors}
+						del={handleDelete}
+						distance={1}
+						axis='xy'
+					/>
+				</main>
+			</div>
+		</AnimationLayout>
 	);
 }
 

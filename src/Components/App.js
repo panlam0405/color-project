@@ -1,10 +1,11 @@
 import Params from "./Params";
 import "../styles/App.css";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { colors } from "../seedColors";
 import History from "./History";
 import NewPaletteForm from "./NewPaletteForm";
 import { useEffect, useState } from "react";
+import { AnimatePresence } from "framer-motion";
 
 function App(props) {
 	const savedPalettes = JSON.parse(window.localStorage.getItem("palettes"));
@@ -22,26 +23,31 @@ function App(props) {
 	const removePalette = (id) => {
 		setColor(col.filter((palette) => palette.id !== id));
 	};
+	const location = useLocation();
 	return (
 		<div className='App'>
-			<Routes>
-				<Route
-					exact
-					path='/palette/new'
-					element={<NewPaletteForm savePalette={savePalette} palettes={col} />}
-				/>
-				<Route
-					exact
-					path='/'
-					element={<History palettes={col} removePalette={removePalette} />}
-				/>
-				<Route exact path='/palette/:id' element={<Params colors={col} />} />
-				<Route
-					exact
-					path='/palette/:paletteId/:colorId'
-					element={<Params colors={col} />}
-				/>
-			</Routes>
+			<AnimatePresence exitBeforeEnter>
+				<Routes key={location.pathname} location={location}>
+					<Route
+						exact
+						path='/palette/new'
+						element={
+							<NewPaletteForm savePalette={savePalette} palettes={col} />
+						}
+					/>
+					<Route
+						exact
+						path='/'
+						element={<History palettes={col} removePalette={removePalette} />}
+					/>
+					<Route exact path='/palette/:id' element={<Params colors={col} />} />
+					<Route
+						exact
+						path='/palette/:paletteId/:colorId'
+						element={<Params colors={col} />}
+					/>
+				</Routes>
+			</AnimatePresence>
 		</div>
 	);
 }
