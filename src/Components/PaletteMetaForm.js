@@ -25,6 +25,7 @@ export default function PaletteMetaForm(props) {
 			emoji,
 		};
 		savePalette(newPalette);
+		handleFormClicks(!open);
 	};
 	useEffect(() => {
 		ValidatorForm.addValidationRule("isPaletteNameUnique", (value) => {
