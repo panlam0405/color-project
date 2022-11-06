@@ -14,8 +14,10 @@ import PaletteFormNavbar from "./PaletteFormNavbar";
 import ColorPickerForm from "./ColorPickerForm";
 import { useStyles } from "../styles/newPaletteForm.styles";
 import AnimationLayout from "./AnimationLayout";
+import { seedColors } from "../seedColors";
 
 function NewPaletteForm(props) {
+	console.log(props);
 	const { palettes, maxLength } = props;
 
 	const classes = useStyles();
@@ -24,7 +26,7 @@ function NewPaletteForm(props) {
 
 	const [open, setOpen] = React.useState(true);
 	const [currentColor, setColor] = React.useState("#346efc");
-	const [colors, setColorsArray] = React.useState(palettes[0].colors);
+	const [colors, setColorsArray] = React.useState(seedColors[0].colors);
 	const [newColorName, isValidated] = React.useState("");
 	const [newPaletteName, setNewPalettename] = React.useState("");
 

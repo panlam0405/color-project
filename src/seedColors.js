@@ -1,4 +1,4 @@
-export let colors = [
+export let seedColors = [
 	{
 		paletteName: "Material UI Colors",
 		id: "material-ui-colors",

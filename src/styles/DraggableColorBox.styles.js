@@ -1,5 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 import sizes from "./sizes";
+
 export const useStyles = makeStyles(() => ({
 	root: {
 		width: "20%",
@@ -38,7 +39,6 @@ export const useStyles = makeStyles(() => ({
 		fontSize: "12px",
 		display: "flex",
 		justifyContent: "space-between",
-		color: "rgba(0,0,0,0.5)",
 		alignItems: "flex-end",
 
 		[sizes.down("sm")]: {

@@ -30,6 +30,7 @@ export default function ColorPickerForm(props) {
 			return true;
 		});
 	});
+
 	return (
 		<div style={{ width: "100%" }}>
 			<ChromePicker
@@ -37,7 +38,7 @@ export default function ColorPickerForm(props) {
 				color={currentColor}
 				onChangeComplete={(newColor) => setColor(newColor.hex)}
 			/>
-			<ValidatorForm onSubmit={addnewColor}>
+			<ValidatorForm onSubmit={addnewColor} instantValidate={false}>
 				<TextValidator
 					value={newColorName}
 					variant='filled'
