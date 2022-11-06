@@ -46,6 +46,10 @@ function App() {
 						path='/palette/:paletteId/:colorId'
 						element={<Params colors={col} />}
 					/>
+					<Route
+						path='*'
+						element={<History palettes={col} removePalette={removePalette} />}
+					/>
 				</Routes>
 			</AnimatePresence>
 		</div>
