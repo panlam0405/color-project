@@ -7,7 +7,7 @@ import NewPaletteForm from "./NewPaletteForm";
 import { useEffect, useState } from "react";
 import { AnimatePresence } from "framer-motion";
 
-function App(props) {
+function App() {
 	const savedPalettes = JSON.parse(window.localStorage.getItem("palettes"));
 	const [col, setColor] = useState(savedPalettes || colors);
 	const savePalette = (newPalette) => {

@@ -24,7 +24,7 @@ export default function ColorPickerForm(props) {
 			if (found) return false;
 			return true;
 		});
-		ValidatorForm.addValidationRule("colorExists", (value) => {
+		ValidatorForm.addValidationRule("colorExists", () => {
 			const found = colors.some(({ color }) => color === currentColor);
 			if (found) return false;
 			return true;

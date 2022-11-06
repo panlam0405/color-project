@@ -32,7 +32,7 @@ class Navbar extends Component {
 	}
 	render() {
 		const { format, open } = this.state;
-		const { showAllColors, classes } = this.props;
+		const { showAllColors, classes, level, changeLevel } = this.props;
 		return (
 			<header className={classes.Navbar}>
 				<div className={classes.logo}>
@@ -42,14 +42,14 @@ class Navbar extends Component {
 				{showAllColors && (
 					<div className={classes.colorSlider}>
 						<div className={classes.sliderLevel}>
-							<span>Level : {this.props.level} </span>
+							<span>Level : {level} </span>
 							<div className={classes.slider}>
 								<Slider
-									defaultValue={this.props.level}
+									defaultValue={level}
 									min={100}
 									max={900}
 									step={100}
-									onAfterChange={this.props.changeLevel}
+									onAfterChange={changeLevel}
 								/>
 							</div>
 						</div>
